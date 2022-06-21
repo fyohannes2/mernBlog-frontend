@@ -1,4 +1,5 @@
-import {useState} from 'react'
+
+import {useState, useEffect} from 'react'
 import {
     Grid, TextField, Button, Typography,
     CssBaseline, Container, Box, Avatar,
@@ -7,6 +8,9 @@ import {
 import { useNavigate, Link } from 'react-router-dom'
 
 
+import {toast} from 'react-toastify'
+import Copyright
+ from '../components/Copyright'
 // #region --------------( ICONS )--------------
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -14,31 +18,50 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 // #endregion
 
 
+import {useAuth} from '../middleware/contextHooks'
 export default function Register() {
+    const {registerUser, clearErrors, toasts, isAuthenticated} = useAuth();
+
+
     const navigate = useNavigate()
     const [user, setUser] = useState({
         firstName: 'Peter', lastName: 'Pan', 
         email: 'peterpan@mail.com', password: 'Password123', 
         confirmPassword: 'Password123'
     })
-
     const [showPassword, setShowPassword] = useState({
         password: false, confirmPassword: false
     })
 
+    useEffect(() => {
+        if(isAuthenticated) navigate('/blogs')
+
+        if(toasts){
+            toasts.forEach(ele => {
+                toast(ele.message, {
+                    type: ele.type
+                })
+            });
+            clearErrors()
+        }
+    }, [toasts, isAuthenticated, clearErrors, navigate])
+
     const handleRegister = () => {
         const { firstName, lastName, email, password, confirmPassword } = user
         if(!firstName || !lastName || !email || !password || !confirmPassword) {
-            alert('Please fill all fields')
+         
+            toast('Please fill all the fields', {type: 'error'})
             return
         }
 
         if(password !== confirmPassword) {
-            alert('Passwords do not match')
+         
+            toast('Passwords do not match', {type: 'error'})
             return
         }
 
-        alert('Registration successful')
+       
+        registerUser(user)
     }
     return (
         <Container maxWidth="xs">
@@ -46,18 +69,17 @@ export default function Register() {
 
             <Box
                 sx={{
-                  marginTop: 8, display: 'flex',
-                  flexDirection: 'column', alignItems: 'center'
+                
+                    mt: 8, display: 'flex', mb: 6,
+                    flexDirection: 'column', alignItems: 'center'
                 }}
             >
                 <Avatar sx={{m: 1, backgroundColor: 'secondary.main'}}>
                     <LockOutlinedIcon  />
                 </Avatar>
-
                 <Typography component="h1" variant="h5">
                     Register
                 </Typography>
-
                 <Grid container spacing={2} sx={{mt: 3}}>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -105,18 +127,18 @@ export default function Register() {
                             }}
                         />
                     </Grid>
-
-
+                    
+                        
                 </Grid>
                 <Button 
                     onClick={handleRegister}
                     fullWidth sx={{
-                      mt: 3, mb: 2
+                    
+                        mt: 3, mb: 2
                     }}
                 >
                     Register
                 </Button>
-
                 <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Link to="/login">
@@ -125,6 +147,7 @@ export default function Register() {
                     </Grid>
                 </Grid>
             </Box>
+            <Copyright sx={{mt: 4}} />
         </Container>
     )
 }
