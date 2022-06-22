@@ -15,3 +15,5 @@ export const BLOG_DELETE = 'BLOG_DELETE';
 export const GET_BLOG_BY_ID = 'GET_BLOG_BY_ID';
 export const CLEAR_BLOGS = 'CLEAR_BLOGS';
 export const CLEAR_CURRENT_BLOG = 'CLEAR_CURRENT_BLOG';
+
+export const UPDATE_BLOG_SUCCESS = 'UPDATE_BLOG_SUCCESS';

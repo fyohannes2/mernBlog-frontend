@@ -1,45 +1,38 @@
 import React, {useState, useEffect} from 'react'
 
 import {
-    Grid, Paper, Typography,
+    Grid,
     Button, Container, Stack, Tooltip,
     Box, List, ListItem, ListItemText,
 
 } from '@mui/material'
-
 import Masonry from '@mui/lab/Masonry'
 
 import { useNavigate, Link } from 'react-router-dom'
 
+import BlogCard from '../components/BlogCard'
 
 
 import { useBlog } from '../middleware/contextHooks'
 import MainContainer from '../components/MainContainer'
 import { toast } from 'react-toastify';
-
-
 export default function BlogList() {
-
     const {getBlogs, toasts, clearErrors, blogs} = useBlog();
     const navigate = useNavigate();
     const [myBlogs, setMyBlogs] = useState([]);
-
     useEffect(() => {
         if(!blogs){
             getBlogs()
         }
-
         if(blogs){
             setMyBlogs(blogs)
         }
-
         if(toasts){
             toasts.forEach(ele => {
                 toast(ele.message, {type: ele.type})
             });
             clearErrors()
         }
-
     },[toasts, clearErrors, blogs, getBlogs])
     return (
         <MainContainer>
@@ -52,7 +45,8 @@ export default function BlogList() {
                             <Button fullWidth={false} onClick={() => navigate('/newblog')}>Create Blog</Button>
                         </Stack>
 
-                        <List>
+                        
+                        <List sx={{backgroundColor: 'silver', borderRadius: 5, mt: 3}}>
                             {myBlogs?.map(blog => (
                                 <Link to={`/blogs/${blog._id}`} key={blog._id}>
                                     <ListItem>
@@ -63,7 +57,14 @@ export default function BlogList() {
                                 </Link>
                             ))}
                         </List>
+                    </Grid>
 
+                    <Grid item xs={12} md={9}>
+                        <Masonry columns={2}>
+                            {myBlogs?.map(blog => (
+                                <BlogCard blog={blog} key={blog._id} />
+                            ))}
+                        </Masonry>
                     </Grid>
                 </Grid>
             </Container>

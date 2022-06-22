@@ -12,7 +12,7 @@ import {toast} from 'react-toastify'
 import Copyright
  from '../components/Copyright'
 // #region --------------( ICONS )--------------
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 // #endregion
@@ -25,8 +25,8 @@ export default function Register() {
 
     const navigate = useNavigate()
     const [user, setUser] = useState({
-        firstName: 'Peter', lastName: 'Pan', 
-        email: 'peterpan@mail.com', password: 'Password123', 
+        firstName: 'Ermias', lastName: 'Asgodom', 
+        email: 'ErmiasNip@mail.com', password: 'Password123', 
         confirmPassword: 'Password123'
     })
     const [showPassword, setShowPassword] = useState({
@@ -74,11 +74,11 @@ export default function Register() {
                     flexDirection: 'column', alignItems: 'center'
                 }}
             >
-                <Avatar sx={{m: 1, backgroundColor: 'secondary.main'}}>
+                <Avatar sx={{m: 1, backgroundColor: 'Green'}}>
                     <LockOutlinedIcon  />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Register
+                    Join Us!
                 </Typography>
                 <Grid container spacing={2} sx={{mt: 3}}>
                     <Grid item xs={12} sm={6}>
@@ -89,21 +89,21 @@ export default function Register() {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            placeholder='Enter Your Last Name' name='lastName' 
+                            placeholder='Last name here' name='lastName' 
                             label='Last Name' value={user.lastName} 
                             onChange={(e) => setUser({...user, lastName: e.target.value})}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            placeholder='Enter Your Email' name='email' 
+                            placeholder='Your Email here' name='email' 
                             label='Email' value={user.email} 
                             onChange={(e) => setUser({...user, email: e.target.value})}
                         />
                     </Grid>
                     <Grid item xs={12} >
                         <TextField
-                            placeholder='Enter Password' name='password' 
+                            placeholder='Password here' name='password' 
                             label='Password' value={user.password} 
                             type={showPassword.password ? 'text' : 'password'}
                             onChange={(e) => setUser({...user, password: e.target.value})}
@@ -137,7 +137,7 @@ export default function Register() {
                         mt: 3, mb: 2
                     }}
                 >
-                    Register
+                    Register Now
                 </Button>
                 <Grid container justifyContent="flex-end">
                     <Grid item>
