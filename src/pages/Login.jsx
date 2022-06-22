@@ -13,10 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 // #endregion
-
 import {useAuth} from '../middleware/contextHooks'
 export default function Login() {
- 
     const {loginUser, clearErrors, toasts, isAuthenticated} = useAuth();
     const navigate = useNavigate()
     const [user, setUser] = useState({
@@ -24,12 +22,9 @@ export default function Login() {
         email: 'peterpan@mail.com', password: 'Password123', 
         confirmPassword: 'Password123'
     })
-
     const [showPassword, setShowPassword] = useState(false)
-
     useEffect(() => {
         if(isAuthenticated) navigate('/blogs')
-
         if(toasts){
             toasts.forEach(ele => {
                 toast(ele.message, {
@@ -39,7 +34,6 @@ export default function Login() {
             clearErrors()
         }
     }, [toasts, isAuthenticated, clearErrors, navigate])
-
     const handleRegister = () => {
         const { email, password } = user
         if(!email || !password ) {
@@ -51,7 +45,6 @@ export default function Login() {
     return (
         <Container maxWidth="xs">
             <CssBaseline />
-
             <Box
                 sx={{
                     mt: 8, display: 'flex', mb: 6,
@@ -61,13 +54,11 @@ export default function Login() {
                 <Avatar sx={{m: 1, backgroundColor: 'secondary.main'}}>
                     <LockOutlinedIcon  />
                 </Avatar>
-
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
-
                 <Grid container spacing={2} sx={{mt: 3}}>
-
+  
                     <Grid item xs={12}>
                         <TextField
                             placeholder='Enter Your Email' name='email' 
@@ -95,7 +86,8 @@ export default function Login() {
                         mt: 3, mb: 2
                     }}
                 >
-                    Register
+            
+                    Login
                 </Button>
 
                 <Grid container justifyContent="flex-end">
